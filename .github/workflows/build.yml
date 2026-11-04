@@ -18,7 +18,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build Release Bundle
-        run: gradle bundleRelease -Dorg.gradle.daemon=false --stacktrace
+        env:
+          GRADLE_OPTS: "-Djava.awt.headless=true -Dkotlin.compiler.execution.strategy=in-process"
+        run: gradle bundleRelease --stacktrace
 
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v4
