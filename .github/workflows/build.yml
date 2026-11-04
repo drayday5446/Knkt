@@ -14,10 +14,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Run Gradle Build
-        uses: gradle/actions/setup-gradle@v8.7
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
-          arguments: bundleRelease --no-daemon
+          gradle-version: '8.7'
+
+      - name: Build Release Bundle
+        run: gradle bundleRelease --no-daemon --stacktrace
 
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v4
