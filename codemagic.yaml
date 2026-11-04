@@ -1,14 +1,15 @@
 workflows:
   android-build:
-    name: Android build
+    name: Android APK
     max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
       java: 17
-      groups:
-        - signing
+      vars:
+        STORE_PASSWORD: "ChangeMe1234"
+        KEY_PASSWORD: "ChangeMe1234"
     scripts:
-      - name: Build signed release bundle
+      - name: Build APK
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
           export KEYSTORE_PATH="$CM_BUILD_DIR/my-upload-key.jks"
@@ -19,7 +20,6 @@ workflows:
           GRADLE_VERSION=9.3.1
           curl -sL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o gradle.zip
           unzip -q gradle.zip -d "$HOME/gradle-dist"
-          "$HOME/gradle-dist/gradle-${GRADLE_VERSION}/bin/gradle" bundleRelease
+          "$HOME/gradle-dist/gradle-${GRADLE_VERSION}/bin/gradle" assembleRelease
     artifacts:
-      - my-upload-key.jks
-      - "**/build/outputs/**/*.aab"
+      - "**/build/outputs/**/*.apk"
