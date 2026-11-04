@@ -1,0 +1,6 @@
+{
+  "name": "KNKT",
+  "description": "Pure OLED messaging app featuring dynamic 1-4 pinned chat grids, customizable bubble and group theming, media browser, and gesture controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
